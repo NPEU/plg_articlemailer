@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade">
+
+    <name>PLG_CONTENT_ARTICLEMAILER</name>
+    <author>Andy Kirk</author>
+    <authorEmail>andy.kirk@npeu.ox.ac.uk</authorEmail>
+    <authorUrl>https://www.npeu.ox.ac.uk</authorUrl>
+    <creationDate>June 2026</creationDate>
+    <copyright>(C) NPEU 2026</copyright>
+    <license>MIT License; see LICENSE.md</license>
+
+    <!--  The version string is recorded in the components table -->
+    <version>0.0.1</version>
+    <!-- The description is optional and defaults to the name -->
+    <description>PLG_CONTENT_ARTICLEMAILER_XML_DESCRIPTION</description>
+
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" name="NPEU: plg_articlemailer Update Site">https://raw.githubusercontent.com/NPEU/plg_articlemailer/main/update-manifest.xml</server>
+    </updateservers>
+
+    <namespace path="src">NPEU\Plugin\Content\ArticleMailer</namespace>
+    <files>
+        <folder plugin="articlemailer">src</folder>
+        <folder>language</folder>
+        <folder>services</folder>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="target_category"
+                    type="category"
+                    extension="com_content"
+                    label="PLG_CONTENT_ARTICLEMAILER_TARGET_CATEGORY_LABEL"
+                    description="PLG_CONTENT_ARTICLEMAILER_TARGET_CATEGORY_DESC"
+                    required="true"
+                />
+
+                <field
+                    name="recipient_group"
+                    type="usergrouplist"
+                    label="PLG_CONTENT_ARTICLEMAILER_RECIPIENT_GROUP_LABEL"
+                    description="PLG_CONTENT_ARTICLEMAILER_RECIPIENT_GROUP_DESC"
+                    required="true"
+                />
+
+                <field
+                    name="require_published"
+                    type="radio"
+                    class="btn-group btn-group-yesno"
+                    label="PLG_CONTENT_ARTICLEMAILER_REQUIRE_PUBLISHED_LABEL"
+                    description="PLG_CONTENT_ARTICLEMAILER_REQUIRE_PUBLISHED_DESC"
+                    default="1"
+                    filter="integer"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+            </fieldset>
+
+            <fieldset name="messages" label="PLG_CONTENT_ARTICLEMAILER_MESSAGES_FIELDSET_LABEL">
+                <field
+                    name="subject_template"
+                    type="text"
+                    label="PLG_CONTENT_ARTICLEMAILER_SUBJECT_LABEL"
+                    description="PLG_CONTENT_ARTICLEMAILER_SUBJECT_DESC"
+                    default="New article submitted: {title}"
+                    filter="string"
+                    size="80"
+                />
+
+                <field
+                    name="body_template"
+                    type="textarea"
+                    label="PLG_CONTENT_ARTICLEMAILER_BODY_LABEL"
+                    description="PLG_CONTENT_ARTICLEMAILER_BODY_DESC"
+                    default="A new article has been submitted.\n\nTitle: {title}\nCategory: {category}\nAuthor: {author}\nCreated by: {username}\nArticle ID: {id}\nLink: {link}\n"
+                    filter="raw"
+                    rows="12"
+                    cols="60"
+                />
+            </fieldset>
+        </fields>
+    </config>
+</extension>
